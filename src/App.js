@@ -1954,6 +1954,24 @@ export default function App() {
   const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  const revealEls = document.querySelectorAll(".reveal");
+  revealEls.forEach((el) => observer.observe(el));
+
+  return () => observer.disconnect();
+}, [isReady]); // run after component mounts
+
+  useEffect(() => {
     if (!document.getElementById("prt-css")) {
       const s = document.createElement("style");
       s.id = "prt-css";
