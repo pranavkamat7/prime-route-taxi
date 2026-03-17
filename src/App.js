@@ -1950,6 +1950,7 @@ function WAFloat() {
 
 /* ═══════════════ ROOT ═══════════════ */
 export default function App() {
+  const [isReady, setIsReady] = useState(false);
   const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
@@ -1959,17 +1960,14 @@ export default function App() {
       s.textContent = CSS;
       document.head.appendChild(s);
     }
+
+    const alreadyVisited = sessionStorage.getItem("primeRouteVisited");
+    setShowLoader(!alreadyVisited);
+    setIsReady(true);
   }, []);
 
   useEffect(() => {
-    const alreadyVisited = sessionStorage.getItem("primeRouteVisited");
-
-    if (alreadyVisited) {
-      setShowLoader(false);
-      return;
-    }
-
-    setShowLoader(true);
+    if (!isReady || !showLoader) return;
 
     const timer = setTimeout(() => {
       sessionStorage.setItem("primeRouteVisited", "true");
@@ -1977,28 +1975,9 @@ export default function App() {
     }, 2600);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [isReady, showLoader]);
 
-  useEffect(() => {
-    const t = setTimeout(() => {
-      const els = document.querySelectorAll(".reveal");
-      const io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.classList.add("visible");
-              io.unobserve(e.target);
-            }
-          });
-        },
-        { threshold: 0.1 }
-      );
-
-      els.forEach((el) => io.observe(el));
-    }, 200);
-
-    return () => clearTimeout(t);
-  }, []);
+  if (!isReady) return null;
 
   return (
     <>
