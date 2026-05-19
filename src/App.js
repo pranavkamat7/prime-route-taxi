@@ -431,7 +431,7 @@ function FirstVisitLoader({ visible }) {
       {/* Hero photo background */}
       <div style={{
         position: "absolute", inset: 0,
-        backgroundImage: "url('https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1400&q=80&auto=format&fit=crop')",
+        backgroundImage: "url('https://www.pexels.com/photo/back-view-of-vintage-taxis-on-street-in-india-27091047/')",
         backgroundSize: "cover", backgroundPosition: "center",
         opacity: .08
       }} />
