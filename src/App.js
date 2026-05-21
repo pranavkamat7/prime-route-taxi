@@ -1,15 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
+const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 /* ═══════════════════════════════════════
-   GLOBAL CSS — Light, Premium, Real
+   GLOBAL CSS - Light, Premium, Real
 ═══════════════════════════════════════ */
 const CSS = `
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap');
+
+
+
 
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  font-family:'Inter',sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   background:#FAFAFA;
   color:#1A1A1A;
   -webkit-font-smoothing:antialiased;
@@ -64,12 +68,15 @@ body{
 .wa-fab:hover{transform:scale(1.1)!important}
 .book-btn-main:hover{transform:translateY(-2px)!important;box-shadow:0 14px 32px rgba(22,101,52,.35)!important}
 .tel-btn:hover{background:#1A1A1A!important;color:#fff!important;transform:translateY(-2px)!important}
+.tel-btn:hover .phone-icon{
+  stroke:#fff !important;
+}
 .review-card:hover{border-color:rgba(245,200,0,.28)!important;transform:translateY(-4px)!important;box-shadow:0 16px 36px rgba(0,0,0,.08)!important}
 .est-btn:hover{background:#333!important;transform:translateY(-2px)!important;box-shadow:0 10px 28px rgba(0,0,0,.18)!important}
 
 /* ── LAYOUT ── */
 .wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 20px}
-.sec{padding:80px 0}
+.sec{padding:35px 0}
 .stag{
   font-family:'Inter',sans-serif;
   font-size:11px;
@@ -224,6 +231,7 @@ body{
   .tl-center{justify-content:flex-start}
   .stag,.sh2,.sp{text-align:left}
   nav .nav-area{display:flex!important}
+  .nav-lnk:hover{color:#F5C800 !important;}
   .review-grid{grid-template-columns:repeat(3,1fr)}
   .est-inputs{grid-template-columns:1fr 1fr 1fr}
 }
@@ -301,11 +309,12 @@ const ORG = "#F5C800";
 
 /* ── DATA ── */
 const SERVICES = [
-  { icon: "✈", name: "Airport Pickup & Drop", desc: "Flight-tracked. Zero waiting." },
+  { icon: "✈", name: "Airport Pickup & Drop", desc: "Flight tracked. Zero waiting." },
   { icon: "⬡", name: "City Rides", desc: "Any corner of Goa, anytime." },
   { icon: "◷", name: "Full Day Rental", desc: "Your schedule, your pace." },
   { icon: "⛱", name: "Sightseeing Tours", desc: "Best of North & South Goa." },
   { icon: "⇒", name: "Outstation Trips", desc: "Mumbai, Pune & beyond." },
+  { icon: "☾", name: "Night Rides", desc: "Safe late-night taxi service across Goa." },
 ];
 
 // Real Unsplash car images
@@ -335,7 +344,7 @@ const CARS = [
     tagBg: "#1D6DB5",
     accent: "#1D6DB5",
     features: ["AC", "4 Seats", "Luggage", "USB"],
-    desc: "Smooth and fuel-efficient. Perfect for quick city rides and transfers.",
+    desc: "Smooth and fuel efficient. Perfect for quick city rides and transfers.",
     rating: 4.8,
     trips: 210,
     img: "https://d3az1m1mjm1nrq.cloudfront.net/undefinedhome-dzire_1744276735831.jpg",
@@ -365,10 +374,10 @@ const STATS = [
 ];
 
 const WHY = [
-  { t: "Safe & Verified", d: "Licensed, background-checked professional drivers." },
-  { t: "Always Punctual", d: "We track your flight — you never wait." },
+  { t: "Safe & Verified", d: "Licensed, background checked professional drivers." },
+  { t: "Always Punctual", d: "We track your flight you never wait." },
   { t: "24/7 WhatsApp", d: "Instant reply from Pravin any time." },
-  { t: "No Hidden Costs", d: "Transparent pricing — pay what's quoted." },
+  { t: "No Hidden Costs", d: "Transparent pricing pay what's quoted." },
 ];
 
 const WHY_ICONS = [
@@ -388,7 +397,7 @@ const REVIEWS = [
   { name: "Rohan M.", loc: "Bangalore", text: "Booked on WhatsApp and got confirmation in 2 mins. Price exactly as quoted. Will definitely use again next trip.", stars: 5, trip: "City Rides" },
   { name: "Priya K.", loc: "Delhi", text: "Pravin went beyond to ensure we got to the ferry on time despite traffic. Very professional and friendly.", stars: 5, trip: "Panaji → Divar Island" },
   { name: "Vikram T.", loc: "Pune", text: "Used for outstation trip to Mumbai. Comfortable ride and transparent billing. Highly recommend the Innova!", stars: 5, trip: "Goa → Pune" },
-  { name: "Sarah L.", loc: "Australia", text: "Solo female traveler — felt completely safe. Very courteous driver who knew every restaurant worth visiting.", stars: 5, trip: "South Goa Tour" },
+  { name: "Sarah L.", loc: "Australia", text: "Solo female traveler felt completely safe. Very courteous driver who knew every restaurant worth visiting.", stars: 5, trip: "South Goa Tour" },
 ];
 
 const GOA_SPOTS = [
@@ -440,7 +449,7 @@ function FirstVisitLoader({ visible }) {
           display: "inline-flex", alignItems: "center", gap: 8,
           background: "rgba(245,200,0,.12)", border: "1px solid rgba(0,0,0,.15)",
           borderRadius: 50, padding: "6px 18px", marginBottom: 24,
-          fontFamily: "'Inter',sans-serif", fontSize: 11, fontWeight: 700, color: "#111",
+          fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", fontSize: 11, fontWeight: 700, color: "#111",
           letterSpacing: 3, textTransform: "uppercase"
         }}>Prime Route Taxi · Goa</div>
         <h2 style={{
@@ -470,7 +479,7 @@ function TickerStrip() {
       <div style={{ display: "flex", animation: "marquee 30s linear infinite", width: "max-content" }}>
         {[...TICKER, ...TICKER].map((t, i) => (
           <span key={i} style={{
-            fontFamily: "'Inter',sans-serif", fontSize: 11, fontWeight: 600,
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", fontSize: 11, fontWeight: 600,
             color: "rgba(255,255,255,.6)", padding: "0 20px", whiteSpace: "nowrap",
             display: "flex", alignItems: "center", gap: 8, letterSpacing: "1px", textTransform: "uppercase"
           }}>
@@ -543,9 +552,9 @@ function Navbar() {
 
         {/* Desktop nav */}
         <div className="nav-area" style={{ display: "none", gap: 32 }}>
-          {[["services", "Services"], ["cars", "Fleet"], ["estimator", "Fare Est."], ["reviews", "Reviews"], ["contact", "Contact"]].map(([id, l]) => (
+          {[["services", "Services"], ["cars", "Fleet"], ["reviews", "Reviews"], ["contact", "Contact"]].map(([id, l]) => (
             <span key={id} className="nav-lnk" onClick={() => go(id)}
-              style={{ fontSize: 14, fontWeight: 500, color: "#fff", cursor: "pointer", transition: "color .2s", fontFamily: "'Inter',sans-serif" }}>
+              style={{ fontSize: 14, fontWeight: 500, color: "#fff", cursor: "pointer", transition: "color .2s", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>
               {l}
             </span>
           ))}
@@ -558,7 +567,7 @@ function Navbar() {
                 background: "#15803D",
                 color: "#fff", padding: "10px 20px", borderRadius: 50, fontWeight: 600,
                 fontSize: 13, textDecoration: "none", display: "flex", alignItems: "center", gap: 7,
-                boxShadow: "0 4px 16px rgba(21,128,61,.3)", transition: "all .25s", fontFamily: "'Inter',sans-serif"
+                boxShadow: "0 4px 16px rgba(21,128,61,.3)", transition: "all .25s", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif"
               }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" /></svg>
               <span>Book Now</span>
@@ -582,9 +591,9 @@ function Navbar() {
           borderTop: "1px solid #E5E5E5",
           padding: "12px 20px 20px", animation: "fadeIn .2s ease"
         }}>
-          {[["services", "Services"], ["cars", "Fleet"], ["estimator", "Fare Estimator"], ["reviews", "Reviews"], ["contact", "Contact"]].map(([id, l]) => (
+          {[["services", "Services"], ["cars", "Fleet"], ["reviews", "Reviews"], ["contact", "Contact"]].map(([id, l]) => (
             <div key={id} onClick={() => go(id)}
-              style={{ padding: "13px 0", borderBottom: "1px solid #EFEFEF", color: "#333", fontSize: 15, fontWeight: 500, cursor: "pointer", fontFamily: "'Inter',sans-serif" }}>
+              style={{ padding: "13px 0", borderBottom: "1px solid #EFEFEF", color: "#333", fontSize: 15, fontWeight: 500, cursor: "pointer", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>
               {l}
             </div>
           ))}
@@ -661,7 +670,7 @@ function HeroPhotoCard() {
 ═══════════════════════════════════════ */
 function Hero() {
   return (
-    <section style={{
+    <motion.section initial="hidden" animate="visible" variants={fadeUp} style={{
       paddingTop: 70,
       background: "#FAFAFA",
       overflow: "hidden", position: "relative",
@@ -677,7 +686,7 @@ function Hero() {
         <div className="hero-layout">
           <div className="hero-text">
             {/* Badge */}
-            <div className="hero-tag tl-center" style={{ marginBottom: 20 }}>
+            {/* <div className="hero-tag tl-center" style={{ marginBottom: 20 }}>
               <div style={{
                 display: "inline-flex", alignItems: "center", gap: 10,
                 background: "rgba(245,200,0,.1)", border: "1px solid rgba(245,200,0,.28)",
@@ -688,11 +697,11 @@ function Hero() {
                   boxShadow: "0 0 0 3px rgba(34,197,94,.2)", animation: "pulseGlow 2s infinite"
                 }} />
                 <span style={{
-                  fontFamily: "'Inter',sans-serif", fontSize: 11, fontWeight: 700,
+                  fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", fontSize: 11, fontWeight: 700,
                   color: "#111", letterSpacing: "2px", textTransform: "uppercase"
                 }}>Available Now · Goa</span>
               </div>
-            </div>
+            </div> */}
 
             <h1 className="hero-h1" style={{
               fontFamily: "'Playfair Display',serif",
@@ -707,7 +716,7 @@ function Hero() {
             <p className="hero-p" style={{
               fontSize: 16, color: "#666", lineHeight: 1.8, marginBottom: 32, maxWidth: 420
             }}>
-              Airport pickups · sightseeing tours · outstation trips — with professional, verified drivers you can trust.
+              Airport pickups · sightseeing tours · outstation trips with professional, verified drivers you can trust.
             </p>
 
             <div className="hero-btns btn-row">
@@ -720,25 +729,46 @@ function Hero() {
                   fontWeight: 600, fontSize: 15, textDecoration: "none",
                   boxShadow: "0 8px 28px rgba(21,128,61,.3)",
                   transition: "all .28s cubic-bezier(.22,1,.36,1)",
-                  fontFamily: "'Inter',sans-serif",
+                  fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif",
                 }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" /></svg>
                 Book on WhatsApp
               </a>
 
               <a href="tel:+918007909460" className="tel-btn"
-                style={{
-                  display: "inline-flex", alignItems: "center", gap: 10,
-                  background: "#fff", border: "1.5px solid #DCDCDC",
-                  color: "#1A1A1A", padding: "15px 26px", borderRadius: 12,
-                  fontWeight: 600, fontSize: 15, textDecoration: "none",
-                  transition: "all .28s cubic-bezier(.22,1,.36,1)",
-                  fontFamily: "'Inter',sans-serif",
-                  boxShadow: "0 2px 8px rgba(0,0,0,.06)"
-                }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.27 2 2 0 0 1 3.55 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 6.29 6.29l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
-                +91 80079 09460
-              </a>
+  style={{
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 10,
+    background: "#fff",
+    border: "1.5px solid #DCDCDC",
+    color: "#1A1A1A",
+    padding: "15px 26px",
+    borderRadius: 12,
+    fontWeight: 600,
+    fontSize: 15,
+    textDecoration: "none",
+    transition: "all .28s cubic-bezier(.22,1,.36,1)",
+    fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif",
+    boxShadow: "0 2px 8px rgba(0,0,0,.06)"
+  }}>
+
+  <svg
+    className="phone-icon"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#1A1A1A"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.27 2 2 0 0 1 3.55 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 6.29 6.29l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+  </svg>
+
+  +91 80079 09460
+</a>
             </div>
 
             {/* Stats */}
@@ -751,7 +781,7 @@ function Hero() {
                   }}>{s.n}</div>
                   <div style={{
                     fontSize: 10, color: "#999", textTransform: "uppercase",
-                    letterSpacing: "1.5px", fontWeight: 600, marginTop: 5, fontFamily: "'Inter',sans-serif"
+                    letterSpacing: "1.5px", fontWeight: 600, marginTop: 5, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif"
                   }}>{s.l}</div>
                 </div>
               ))}
@@ -765,7 +795,7 @@ function Hero() {
       </div>
 
       <TickerStrip />
-    </section>
+    </motion.section>
   );
 }
 
@@ -780,11 +810,14 @@ const SVC_ICONS = [
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>,
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="10" r="3" /><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" /></svg>,
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>,
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z" />
+  </svg>,
 ];
 
 function Services() {
   return (
-    <section id="services" className="sec" style={{ background: "#fff" }}>
+    <motion.section id="services" className="sec" style={{ background: "#fff" }} initial="hidden" animate="visible" variants={fadeUp}>
       <div className="wrap">
         <div className="reveal sec-head" style={{ marginBottom: 0 }}>
           <div className="stag">What We Offer</div>
@@ -795,7 +828,7 @@ function Services() {
                 background: "#F5C800",
                 color: "#1a1a1a", padding: "11px 24px", borderRadius: 50,
                 fontSize: 13, fontWeight: 600, textDecoration: "none",
-                boxShadow: "0 6px 20px rgba(0,0,0,.15)", fontFamily: "'Inter',sans-serif"
+                boxShadow: "0 6px 20px rgba(0,0,0,.15)", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif"
               }}>
               Book Now →
             </a>
@@ -824,7 +857,7 @@ function Services() {
                 <div style={{ width: 22, height: 22 }}>{SVC_ICONS[i]}</div>
               </div>
               <div style={{
-                fontFamily: "'Inter',sans-serif", fontSize: 13, fontWeight: 700,
+                fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", fontSize: 13, fontWeight: 700,
                 color: "#1A1A1A", marginBottom: 6, lineHeight: 1.3
               }}>{sv.name}</div>
               <div style={{ fontSize: 12, color: "#999", lineHeight: 1.7 }}>{sv.desc}</div>
@@ -834,30 +867,148 @@ function Services() {
 
         {/* Goa Spots */}
         <div className="reveal" style={{ marginTop: 56 }}>
-          <div className="stag">Popular Destinations</div>
-          <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 24, fontWeight: 700, color: "#1A1A1A", marginBottom: 4 }}>
-            Quick Spot Bookings
-          </h3>
-          <p style={{ fontSize: 14, color: "#888", marginBottom: 0 }}>Tap any destination to book a ride instantly on WhatsApp</p>
-          <div className="spots-row">
-            {GOA_SPOTS.map((s, i) => (
-              <a key={i} href={wa(`Hi Pravin! I'd like a ride to ${s.name} (approx ${s.dist}). Please share pricing & availability 🙏`)}
-                target="_blank" rel="noreferrer" className="spot-pill"
-                style={{
-                  display: "inline-flex", alignItems: "center", gap: 8,
-                  background: "#fff", border: "1px solid #E5E5E5",
-                  borderRadius: 50, padding: "9px 18px", textDecoration: "none",
-                  fontSize: 13, color: "#333", fontWeight: 500, fontFamily: "'Inter',sans-serif",
-                  boxShadow: "0 1px 4px rgba(0,0,0,.06)"
-                }}>
-                <span>{s.name}</span>
-                <span style={{ color: "#111", fontSize: 11, fontWeight: 600, background: "#F5C800", padding: "1px 6px", borderRadius: 4 }}>{s.dist}</span>
-              </a>
-            ))}
-          </div>
+  <div className="stag">Popular Destinations</div>
+
+  <h3 style={{
+    fontFamily:"'Playfair Display',serif",
+    fontSize:24,
+    fontWeight:700,
+    color:"#1A1A1A",
+    marginBottom:6
+  }}>
+    Quick Spot Bookings
+  </h3>
+
+  <p style={{
+    fontSize:14,
+    color:"#888",
+    marginBottom:24
+  }}>
+    Tap a destination to instantly book your ride
+  </p>
+
+ <div style={{
+  display:"flex",
+  gap:16,
+  overflowX:"auto",
+  paddingBottom:8,
+  scrollbarWidth:"none"
+}}>
+  {GOA_SPOTS.map((s, i) => (
+    <a
+      key={i}
+      href={wa(`Hi Pravin! I'd like a ride to ${s.name} (approx ${s.dist}). Please share pricing & availability 🙏`)}
+      target="_blank"
+      rel="noreferrer"
+      style={{
+        minWidth:190,
+        position:"relative",
+        background:"#fff",
+        border:"1px solid #ECECEC",
+        borderRadius:"28px 28px 10px 28px",
+        padding:"20px 18px",
+        textDecoration:"none",
+        boxShadow:"0 10px 24px rgba(0,0,0,.06)",
+        overflow:"hidden",
+        transition:"all .25s ease"
+      }}
+    >
+
+      {/* top glow */}
+      {/* <div style={{
+        position:"absolute",
+        top:-40,
+        right:-40,
+        width:100,
+        height:100,
+        background:"rgba(245,200,0,.18)",
+        borderRadius:"50%",
+        filter:"blur(10px)"
+      }}/> */}
+
+      {/* location icon */}
+      <div style={{
+  width:48,
+  height:48,
+  borderRadius:"18px 18px 8px 18px",
+  background:"#fff",
+  display:"flex",
+  alignItems:"center",
+  justifyContent:"center",
+  marginBottom:18
+}}>
+  <svg
+    width="30"
+    height="30"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#f5c800"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/>
+    <circle cx="12" cy="10" r="3"/>
+  </svg>
+</div>
+
+      {/* place */}
+      <div style={{
+        fontSize:17,
+        fontWeight:700,
+        color:"#111",
+        marginBottom:6,
+        fontFamily:"'Inter',sans-serif"
+      }}>
+        {s.name}
+      </div>
+
+      {/* distance */}
+      <div style={{
+        fontSize:13,
+        color:"#777",
+        marginBottom:18
+      }}>
+        Approx {s.dist}
+      </div>
+
+      {/* bottom row */}
+      <div style={{
+        display:"flex",
+        alignItems:"center",
+        justifyContent:"space-between"
+      }}>
+        <span style={{
+          fontSize:12,
+          fontWeight:600,
+          color:"#999",
+          letterSpacing:".5px",
+          textTransform:"uppercase"
+        }}>
+          Book Ride
+        </span>
+
+        <div style={{
+          width:34,
+          height:34,
+          borderRadius:"50%",
+          background:"#f5c800",
+          display:"flex",
+          alignItems:"center",
+          justifyContent:"center",
+          color:"#fff",
+          fontWeight:700
+        }}>
+          →
         </div>
       </div>
-    </section>
+
+    </a>
+  ))}
+</div>
+</div>
+      </div>
+    </motion.section>
   );
 }
 
@@ -873,12 +1024,12 @@ function Fleet() {
         <div className="reveal sec-head" style={{ marginBottom: 0 }}>
           <div className="stag">Our Fleet</div>
           <h2 className="sh2">Choose Your Ride</h2>
-          <p className="sp">All vehicles are AC, well-maintained, and GPS tracked.</p>
+          <p className="sp">All vehicles are AC, well maintained, and GPS tracked.</p>
         </div>
 
         <div className="cars-grid">
           {CARS.map((car, i) => (
-            <div key={i} className={`car-card reveal reveal-d${Math.min(i + 1, 3)}`}
+            <motion.div key={i} className={`car-card reveal reveal-d${Math.min(i + 1, 3)}`} whileHover={{ scale:1.03 }} transition={{ type:"spring", stiffness:300 }}
               style={{
                 background: "#fff",
                 border: "1px solid #E5E5E5",
@@ -909,7 +1060,7 @@ function Fleet() {
                   boxShadow: "0 2px 8px rgba(0,0,0,.12)"
                 }}>
                   <span style={{ color: "#F5C800", fontSize: 11 }}>★</span>
-                  <span style={{ fontSize: 12, fontWeight: 700, color: "#1A1A1A", fontFamily: "'Inter',sans-serif" }}>{car.rating}</span>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: "#1A1A1A", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>{car.rating}</span>
                 </div>
               </div>
 
@@ -920,7 +1071,7 @@ function Fleet() {
                 </div>
                 <div style={{
                   fontSize: 11, color: car.tagBg, fontWeight: 700,
-                  letterSpacing: "2px", textTransform: "uppercase", marginBottom: 14, fontFamily: "'Inter',sans-serif"
+                  letterSpacing: "2px", textTransform: "uppercase", marginBottom: 14, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif"
                 }}>{car.type}</div>
 
                 <div style={{ display: "flex", gap: 6, marginBottom: 14, flexWrap: "wrap" }}>
@@ -928,13 +1079,13 @@ function Fleet() {
                     <span key={fi} style={{
                       fontSize: 11, color: "#666",
                       background: "#F4F4F4", border: "1px solid #E5E5E5",
-                      borderRadius: 50, padding: "4px 10px", fontWeight: 500, fontFamily: "'Inter',sans-serif"
+                      borderRadius: 50, padding: "4px 10px", fontWeight: 500, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif"
                     }}>{f}</span>
                   ))}
                 </div>
 
-                <p style={{ fontSize: 13, color: "#888", lineHeight: 1.7, marginBottom: 6, fontFamily: "'Inter',sans-serif" }}>{car.desc}</p>
-                <div style={{ fontSize: 11, color: "#BBB", marginBottom: 18, fontFamily: "'Inter',sans-serif" }}>{car.trips} trips completed</div>
+                <p style={{ fontSize: 13, color: "#888", lineHeight: 1.7, marginBottom: 6, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>{car.desc}</p>
+                <div style={{ fontSize: 11, color: "#BBB", marginBottom: 18, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>{car.trips} trips completed</div>
 
                 <div style={{
                   display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -944,7 +1095,7 @@ function Fleet() {
                     <div style={{ fontFamily: "'Playfair Display',serif", fontSize: 28, fontWeight: 700, color: "#1A1A1A", lineHeight: 1 }}>
                       {car.price}
                     </div>
-                    <div style={{ fontSize: 11, color: "#AAA", marginTop: 2, fontFamily: "'Inter',sans-serif" }}>/day · {car.perKm}</div>
+                    <div style={{ fontSize: 11, color: "#AAA", marginTop: 2, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>/day · {car.perKm}</div>
                   </div>
                   <a href={wa(bm(car))} target="_blank" rel="noreferrer"
                     className="car-book-btn"
@@ -952,11 +1103,11 @@ function Fleet() {
                       background: "transparent", border: `1.5px solid ${car.tagBg}`,
                       color: car.tagBg, padding: "11px 20px", borderRadius: 10,
                       fontWeight: 600, fontSize: 13, textDecoration: "none",
-                      transition: "all .25s cubic-bezier(.22,1,.36,1)", fontFamily: "'Inter',sans-serif"
+                      transition: "all .25s cubic-bezier(.22,1,.36,1)", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif"
                     }}>Book →</a>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -965,183 +1116,17 @@ function Fleet() {
 }
 
 /* ═══════════════════════════════════════
-   FARE ESTIMATOR
-═══════════════════════════════════════ */
-function FareEstimator() {
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
-  const [carType, setCarType] = useState("innova");
-  const [tripType, setTripType] = useState("one");
-  const [result, setResult] = useState(null);
-
-  const fromOptions = ["Goa Airport (GOI)", "Panaji", "Calangute", "Anjuna", "Baga", "Margao", "Mapusa", "Panjim Ferry"];
-  const toOptions = ["Calangute Beach", "Dudhsagar Falls", "Old Goa Churches", "Anjuna Market", "Panaji City", "Baga Beach", "Spice Plantations", "Mumbai (Outstation)", "Pune (Outstation)", "Margao", "Mapusa"];
-
-  const estimate = () => {
-    if (!from || !to) return;
-    const route = ROUTES.find(r =>
-      r.from.toLowerCase().includes(from.split("(")[0].trim().toLowerCase().substring(0, 5)) ||
-      from.toLowerCase().includes(r.from.toLowerCase().substring(0, 5))
-    );
-    let base;
-    if (route) {
-      base = parseInt((carType === "innova" ? route.innova : carType === "dzire" ? route.dzire : route.etios).replace(/[₹,]/g, ""));
-    } else {
-      base = carType === "innova" ? 2000 : carType === "dzire" ? 1400 : 1200;
-    }
-    const final = tripType === "return" ? Math.round(base * 1.8) : base;
-    setResult({
-      price: `₹${final.toLocaleString("en-IN")}`,
-      car: carType === "innova" ? "Toyota Innova Crysta" : carType === "dzire" ? "Maruti Swift Dzire" : "Toyota Etios",
-      note: "Estimate may vary based on exact pickup location & traffic. WhatsApp Pravin for exact fare.",
-      from, to
-    });
-  };
-
-  const carLabel = { "innova": "Toyota Innova", "dzire": "Swift Dzire", "etios": "Toyota Etios" };
-
-  return (
-    <section id="estimator" className="sec" style={{ background: "#fff" }}>
-      <div className="wrap">
-        <div className="reveal sec-head" style={{ marginBottom: 0 }}>
-          <div className="stag">Plan Your Trip</div>
-          <h2 className="sh2">Fare Estimator</h2>
-          <p className="sp">Get an instant estimate before you book. No surprises.</p>
-        </div>
-
-        <div className="reveal" style={{
-          marginTop: 36, background: "#FAFAFA",
-          border: "1px solid #E5E5E5", borderRadius: 20,
-          padding: "clamp(24px,4vw,44px)"
-        }}>
-          {/* Trip type toggle */}
-          <div style={{ display: "flex", gap: 8, marginBottom: 24, padding: 4, background: "#EFEFEF", borderRadius: 12, width: "fit-content" }}>
-            {[["one", "One Way"], ["return", "Round Trip"]].map(([v, l]) => (
-              <button key={v} onClick={() => setTripType(v)}
-                className={`trip-type-btn${tripType === v ? " active" : ""}`}>
-                {l}
-              </button>
-            ))}
-          </div>
-
-          <div className="est-inputs">
-            <div>
-              <label style={{ fontSize: 11, color: "#888", fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", display: "block", marginBottom: 8, fontFamily: "'Inter',sans-serif" }}>
-                Pickup Location
-              </label>
-              <select className="est-select" value={from} onChange={e => setFrom(e.target.value)}>
-                <option value="">Select pickup point</option>
-                {fromOptions.map(o => <option key={o} value={o}>{o}</option>)}
-              </select>
-            </div>
-            <div>
-              <label style={{ fontSize: 11, color: "#888", fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", display: "block", marginBottom: 8, fontFamily: "'Inter',sans-serif" }}>
-                Destination
-              </label>
-              <select className="est-select" value={to} onChange={e => setTo(e.target.value)}>
-                <option value="">Select destination</option>
-                {toOptions.map(o => <option key={o} value={o}>{o}</option>)}
-              </select>
-            </div>
-            <div>
-              <label style={{ fontSize: 11, color: "#888", fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", display: "block", marginBottom: 8, fontFamily: "'Inter',sans-serif" }}>
-                Vehicle Type
-              </label>
-              <select className="est-select" value={carType} onChange={e => setCarType(e.target.value)}>
-                <option value="innova">Innova Crysta (7 seats)</option>
-                <option value="dzire">Swift Dzire (4 seats)</option>
-                <option value="etios">Etios (4 seats)</option>
-              </select>
-            </div>
-          </div>
-
-          <button onClick={estimate} className="est-btn"
-            style={{
-              marginTop: 22, background: "#111",
-              border: "none", color: "#fff", padding: "14px 36px", borderRadius: 10,
-              fontFamily: "'Inter',sans-serif", fontWeight: 600, fontSize: 15, cursor: "pointer",
-              boxShadow: "0 8px 24px rgba(0,0,0,.18)", transition: "all .25s", width: "100%"
-            }}>
-            Calculate Fare
-          </button>
-
-          {result && (
-            <div style={{
-              marginTop: 24, padding: 24,
-              background: "#fff",
-              border: "1px solid rgba(245,200,0,.22)", borderRadius: 14,
-              animation: "scaleIn .3s cubic-bezier(.22,1,.36,1)",
-              boxShadow: "0 4px 20px rgba(245,200,0,.1)"
-            }}>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
-                <div>
-                  <div style={{ fontSize: 11, color: "#111", fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", marginBottom: 6, fontFamily: "'Inter',sans-serif" }}>
-                    Estimated Fare
-                  </div>
-                  <div style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(32px,6vw,52px)", fontWeight: 700, color: "#111", lineHeight: 1 }}>
-                    {result.price}
-                  </div>
-                  {tripType === "return" && <div style={{ fontSize: 11, color: "#999", marginTop: 4, fontFamily: "'Inter',sans-serif" }}>Round trip price included</div>}
-                </div>
-                <div style={{ textAlign: "right" }}>
-                  <div style={{ fontSize: 13, color: "#444", marginBottom: 4, fontFamily: "'Inter',sans-serif" }}>
-                    {result.from} → {result.to}
-                  </div>
-                  <div style={{ fontSize: 12, color: "#999", fontFamily: "'Inter',sans-serif" }}>{carLabel[carType]}</div>
-                </div>
-              </div>
-              <div style={{ marginTop: 16, borderTop: "1px solid #EFEFEF", paddingTop: 16 }}>
-                <p style={{ fontSize: 12, color: "#888", lineHeight: 1.7, marginBottom: 14, fontFamily: "'Inter',sans-serif" }}>{result.note}</p>
-                <a href={wa(`Hi Pravin! I want to book from ${result.from} to ${result.to} in ${carLabel[carType]}. Estimated fare shown is ${result.price}. Can you confirm? 🙏`)}
-                  target="_blank" rel="noreferrer"
-                  style={{
-                    display: "inline-flex", alignItems: "center", gap: 8,
-                    background: "#15803D", color: "#fff",
-                    padding: "11px 22px", borderRadius: 8, fontWeight: 600, fontSize: 13,
-                    textDecoration: "none", boxShadow: "0 6px 18px rgba(21,128,61,.28)",
-                    fontFamily: "'Inter',sans-serif"
-                  }}>
-                  Confirm on WhatsApp →
-                </a>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Popular routes */}
-        <div className="reveal" style={{ marginTop: 40 }}>
-          <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 15, fontWeight: 700, color: "#444", marginBottom: 16 }}>
-            Popular Routes
-          </div>
-          <div style={{
-            background: "#FAFAFA", border: "1px solid #E5E5E5",
-            borderRadius: 14, overflow: "hidden"
-          }}>
-            {/* Header */}
-            <div style={{
-              display: "grid", gridTemplateColumns: "1fr auto auto auto",
-              gap: "8px 16px", padding: "10px 20px",
-              background: "#EFEFEF", borderBottom: "1px solid #E5E5E5"
-            }}>
-              <div style={{ fontSize: 10, color: "#888", fontWeight: 700, letterSpacing: "1.5px", fontFamily: "'Inter',sans-serif" }}>ROUTE</div>
-              <div style={{ textAlign: "right", fontSize: 10, color: "#111", fontWeight: 700, letterSpacing: "1px", fontFamily: "'Inter',sans-serif" }}>INNOVA</div>
-              <div style={{ textAlign: "right", fontSize: 10, color: "#1D6DB5", fontWeight: 700, letterSpacing: "1px", fontFamily: "'Inter',sans-serif" }}>DZIRE</div>
-              <div style={{ textAlign: "right", fontSize: 10, color: "#15803D", fontWeight: 700, letterSpacing: "1px", fontFamily: "'Inter',sans-serif" }}>ETIOS</div>
-            </div>
-            {ROUTES.map((r, i) => (
-              <div key={i} style={{
-                display: "grid", gridTemplateColumns: "1fr auto auto auto",
                 gap: "8px 16px", padding: "13px 20px", alignItems: "center",
                 borderBottom: i < ROUTES.length - 1 ? "1px solid #EFEFEF" : "none",
               }}>
                 <div style={{ minWidth: 0 }}>
-                  <span style={{ fontSize: 12, color: "#333", fontWeight: 500, fontFamily: "'Inter',sans-serif" }}>{r.from}</span>
+                  <span style={{ fontSize: 12, color: "#333", fontWeight: 500, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>{r.from}</span>
                   <span style={{ color: "#111", margin: "0 7px", fontSize: 11 }}>→</span>
-                  <span style={{ fontSize: 12, color: "#333", fontWeight: 500, fontFamily: "'Inter',sans-serif" }}>{r.to}</span>
+                  <span style={{ fontSize: 12, color: "#333", fontWeight: 500, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>{r.to}</span>
                 </div>
-                <div style={{ textAlign: "right", fontSize: 12, color: "#111", fontWeight: 700, fontFamily: "'Inter',sans-serif", whiteSpace: "nowrap" }}>{r.innova}</div>
-                <div style={{ textAlign: "right", fontSize: 12, color: "#1D6DB5", fontWeight: 700, fontFamily: "'Inter',sans-serif", whiteSpace: "nowrap" }}>{r.dzire}</div>
-                <div style={{ textAlign: "right", fontSize: 12, color: "#15803D", fontWeight: 700, fontFamily: "'Inter',sans-serif", whiteSpace: "nowrap" }}>{r.etios}</div>
+                <div style={{ textAlign: "right", fontSize: 12, color: "#111", fontWeight: 700, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", whiteSpace: "nowrap" }}>{r.innova}</div>
+                <div style={{ textAlign: "right", fontSize: 12, color: "#1D6DB5", fontWeight: 700, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", whiteSpace: "nowrap" }}>{r.dzire}</div>
+                <div style={{ textAlign: "right", fontSize: 12, color: "#15803D", fontWeight: 700, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", whiteSpace: "nowrap" }}>{r.etios}</div>
               </div>
             ))}
           </div>
@@ -1188,8 +1173,8 @@ function WhyUs() {
               }}>
                 <div style={{ width: 22, height: 22 }}>{WHY_ICONS[i]}</div>
               </div>
-              <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 8 }}>{w.t}</div>
-              <div style={{ fontSize: 13, color: "rgba(255,255,255,.5)", lineHeight: 1.7, fontFamily: "'Inter',sans-serif" }}>{w.d}</div>
+              <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 8 }}>{w.t}</div>
+              <div style={{ fontSize: 13, color: "rgba(255,255,255,.5)", lineHeight: 1.7, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>{w.d}</div>
             </div>
           ))}
         </div>
@@ -1205,7 +1190,7 @@ function WhyUs() {
             { t: "Licensed & Insured", d: "All vehicles legally registered & insured" },
             { t: "Flight Tracking", d: "We monitor your flight so you're never stranded" },
             { t: "Digital Receipts", d: "Get billing summary on WhatsApp after every trip" },
-            { t: "Clean Every Ride", d: "Sanitized & deep-cleaned before each booking" },
+            { t: "Clean Every Ride", d: "Sanitized & deep cleaned before each booking" },
           ].map((item, i) => (
             <div
               key={i}
@@ -1222,8 +1207,8 @@ function WhyUs() {
                 boxShadow: "0 0 0 3px rgba(245,200,0,.22)"
               }} />
               <div>
-                <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 13, fontWeight: 700, color: "#fff" }}>{item.t}</div>
-                <div style={{ fontSize: 11, color: "rgba(255,255,255,.45)", lineHeight: 1.5, fontFamily: "'Inter',sans-serif" }}>{item.d}</div>
+                <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", fontSize: 13, fontWeight: 700, color: "#fff" }}>{item.t}</div>
+                <div style={{ fontSize: 11, color: "rgba(255,255,255,.45)", lineHeight: 1.5, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>{item.d}</div>
               </div>
             </div>
           ))}
@@ -1290,10 +1275,10 @@ function Reviews() {
                 fontFamily: "'Playfair Display',serif", fontSize: 18, fontWeight: 700, color: "#fff"
               }}>{REVIEWS[active].name[0]}</div>
               <div>
-                <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 14, fontWeight: 700, color: "#1A1A1A" }}>
+                <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", fontSize: 14, fontWeight: 700, color: "#1A1A1A" }}>
                   {REVIEWS[active].name}
                 </div>
-                <div style={{ fontSize: 12, color: "#999", fontFamily: "'Inter',sans-serif" }}>
+                <div style={{ fontSize: 12, color: "#999", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>
                   {REVIEWS[active].loc} · {REVIEWS[active].trip}
                 </div>
               </div>
@@ -1326,16 +1311,16 @@ function Reviews() {
                   <span key={si} style={{ color: "#F5C800", fontSize: 12 }}>★</span>
                 ))}
               </div>
-              <p style={{ fontSize: 13, color: "#444", lineHeight: 1.7, marginBottom: 14, fontFamily: "'Inter',sans-serif" }}>"{r.text}"</p>
+              <p style={{ fontSize: 13, color: "#444", lineHeight: 1.7, marginBottom: 14, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>"{r.text}"</p>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <div>
-                  <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 13, fontWeight: 700, color: "#1A1A1A" }}>{r.name}</div>
-                  <div style={{ fontSize: 11, color: "#AAA", fontFamily: "'Inter',sans-serif" }}>{r.loc}</div>
+                  <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", fontSize: 13, fontWeight: 700, color: "#1A1A1A" }}>{r.name}</div>
+                  <div style={{ fontSize: 11, color: "#AAA", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>{r.loc}</div>
                 </div>
                 <div style={{
                   fontSize: 10, color: "#111", fontWeight: 700,
                   background: "#F5C800", border: "1px solid #F5C800",
-                  borderRadius: 50, padding: "3px 10px", fontFamily: "'Inter',sans-serif"
+                  borderRadius: 50, padding: "3px 10px", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif"
                 }}>{r.trip}</div>
               </div>
             </div>
@@ -1343,7 +1328,7 @@ function Reviews() {
         </div>
 
         <div className="reveal" style={{ marginTop: 32, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
-          <p style={{ fontSize: 14, color: "#888", fontFamily: "'Inter',sans-serif" }}>Travelled with us? Share your experience!</p>
+          <p style={{ fontSize: 14, color: "#888", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>Travelled with us? Share your experience!</p>
           <a href={wa("Hi Pravin! I recently travelled with Prime Route Taxi and wanted to share my feedback 😊")}
             target="_blank" rel="noreferrer"
             style={{
@@ -1351,7 +1336,7 @@ function Reviews() {
               background: "#fff", border: "1.5px solid #DCDCDC",
               color: "#444", padding: "11px 22px", borderRadius: 50,
               fontWeight: 600, fontSize: 13, textDecoration: "none",
-              transition: "all .25s", fontFamily: "'Inter',sans-serif",
+              transition: "all .25s", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif",
               boxShadow: "0 2px 8px rgba(0,0,0,.06)"
             }}>
             Leave a Review on WhatsApp →
@@ -1386,7 +1371,7 @@ function Contact() {
             <div style={{
               display: "inline-block", background: "rgba(245,200,0,.16)", border: "1px solid rgba(0,0,0,.15)",
               borderRadius: 50, padding: "6px 20px", marginBottom: 20,
-              fontFamily: "'Inter',sans-serif", fontSize: 10, fontWeight: 700,
+              fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", fontSize: 10, fontWeight: 700,
               color: "#F5C800", letterSpacing: "3px", textTransform: "uppercase"
             }}>Get In Touch</div>
 
@@ -1397,8 +1382,8 @@ function Contact() {
               Ready to <span style={{ color: "#F5C800" }}>Ride?</span>
             </h2>
 
-            <p style={{ fontSize: 15, color: "rgba(255,255,255,.55)", lineHeight: 1.8, maxWidth: 380, margin: "0 auto 24px", fontFamily: "'Inter',sans-serif" }}>
-              Call or WhatsApp Pravin for instant booking — no apps, no wait, no hassle.
+            <p style={{ fontSize: 15, color: "rgba(255,255,255,.55)", lineHeight: 1.8, maxWidth: 380, margin: "0 auto 24px", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>
+              Call or WhatsApp Pravin for instant booking no apps, no wait, no hassle.
             </p>
 
             <div style={{
@@ -1407,7 +1392,7 @@ function Contact() {
               marginBottom: 6
             }}>+91 8007909460</div>
 
-            <div style={{ fontSize: 13, color: "rgba(255,255,255,.35)", marginBottom: 32, fontWeight: 500, fontFamily: "'Inter',sans-serif" }}>
+            <div style={{ fontSize: 13, color: "rgba(255,255,255,.35)", marginBottom: 32, fontWeight: 500, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>
               Pravin · Prime Route Taxi · Goa · 24/7
             </div>
 
@@ -1418,7 +1403,7 @@ function Contact() {
                   background: "#15803D", color: "#fff",
                   padding: "16px 30px", borderRadius: 12, fontWeight: 600, fontSize: 14,
                   textDecoration: "none", boxShadow: "0 8px 24px rgba(21,128,61,.35)",
-                  transition: "all .25s", fontFamily: "'Inter',sans-serif"
+                  transition: "all .25s", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif"
                 }}>
                 WhatsApp Now
               </a>
@@ -1427,7 +1412,7 @@ function Contact() {
                   display: "inline-flex", alignItems: "center", gap: 9,
                   background: "rgba(245,200,0,.16)", border: "1.5px solid rgba(0,0,0,.2)",
                   color: "#F5C800", padding: "16px 30px", borderRadius: 12, fontWeight: 600, fontSize: 14,
-                  textDecoration: "none", transition: "all .25s", fontFamily: "'Inter',sans-serif"
+                  textDecoration: "none", transition: "all .25s", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif"
                 }}>
                 Call Pravin
               </a>
@@ -1439,7 +1424,7 @@ function Contact() {
                   display: "flex", alignItems: "center", gap: 6,
                   background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.1)",
                   borderRadius: 50, padding: "7px 16px", fontSize: 12, color: "rgba(255,255,255,.5)", fontWeight: 500,
-                  fontFamily: "'Inter',sans-serif"
+                  fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif"
                 }}><span style={{ width: 5, height: 5, borderRadius: "50%", background: "#F5C800", display: "block" }} />{t}</div>
               ))}
             </div>
@@ -1483,54 +1468,54 @@ function Footer() {
               </div>
               <div>
                 <div className="footer-brand-title" style={{ fontFamily: "'Playfair Display',serif", fontSize: 15, fontWeight: 700, color: "#fff", marginLeft: "-10px" }}>Prime Route Taxi</div>
-                <div lassName="footer-brand-sub" style={{ fontSize: 9, color: "#F5C800", letterSpacing: "2px", textTransform: "uppercase", fontWeight: 600, fontFamily: "'Inter',sans-serif", marginRight: "-10px" }}>Goa, India</div>
+                <div lassName="footer-brand-sub" style={{ fontSize: 9, color: "#F5C800", letterSpacing: "2px", textTransform: "uppercase", fontWeight: 600, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", marginRight: "-10px" }}>Goa, India</div>
               </div>
             </div>
-            <p style={{ fontSize: 13, color: "rgba(255,255,255,.35)", lineHeight: 1.75, maxWidth: 240, marginBottom: 16, fontFamily: "'Inter',sans-serif" }}>
-              Goa's most trusted taxi service — professional, punctual & always available.
+            <p style={{ fontSize: 13, color: "rgba(255,255,255,.35)", lineHeight: 1.75, maxWidth: 240, marginBottom: 16, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>
+              Goa's most trusted taxi service professional, punctual & always available.
             </p>
             <a href={wa(GM)} target="_blank" rel="noreferrer"
               style={{
                 display: "inline-flex", alignItems: "center", gap: 7,
                 background: "#15803D", color: "#fff", padding: "10px 20px", borderRadius: 50,
                 fontSize: 13, fontWeight: 600, textDecoration: "none",
-                boxShadow: "0 4px 16px rgba(21,128,61,.3)", fontFamily: "'Inter',sans-serif"
+                boxShadow: "0 4px 16px rgba(21,128,61,.3)", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif"
               }}>WhatsApp Us</a>
           </div>
 
           <div>
-            <div className="footer-heading" style={{ fontFamily: "'Inter',sans-serif", fontSize: 11, fontWeight: 700, color: "rgba(55, 54, 54, 0.3)", marginBottom: 16, letterSpacing: "2px", textTransform: "uppercase" }}>
+            <div className="footer-heading" style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", fontSize: 11, fontWeight: 700, color: "rgba(55, 54, 54, 0.3)", marginBottom: 16, letterSpacing: "2px", textTransform: "uppercase" }}>
               Services
             </div>
             {SERVICES.map(s => (
               <a key={s.name} href={wa(`Hi Pravin! I'm interested in ${s.name}. Please share details.`)}
                 target="_blank" rel="noreferrer"
-                style={{ display: "block", fontSize: 13, color: "rgba(255,255,255,.4)", marginBottom: 9, textDecoration: "none", transition: "color .2s", fontFamily: "'Inter',sans-serif" }}>
+                style={{ display: "block", fontSize: 13, color: "rgba(255,255,255,.4)", marginBottom: 9, textDecoration: "none", transition: "color .2s", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>
                 {s.name}
               </a>
             ))}
           </div>
 
           <div>
-            <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,.3)", marginBottom: 16, letterSpacing: "2px", textTransform: "uppercase" }}>
+            <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,.3)", marginBottom: 16, letterSpacing: "2px", textTransform: "uppercase" }}>
               Quick Links
             </div>
             {[["#services", "Our Services"], ["#cars", "Fleet & Pricing"], ["#estimator", "Fare Estimator"], ["#reviews", "Reviews"], ["#contact", "Contact"]].map(([href, l]) => (
               <a key={l} href={href}
-                style={{ display: "block", fontSize: 13, color: "rgba(255,255,255,.4)", marginBottom: 9, textDecoration: "none", fontFamily: "'Inter',sans-serif" }}>
+                style={{ display: "block", fontSize: 13, color: "rgba(255,255,255,.4)", marginBottom: 9, textDecoration: "none", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>
                 {l}
               </a>
             ))}
           </div>
 
           <div>
-            <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,.3)", marginBottom: 16, letterSpacing: "2px", textTransform: "uppercase" }}>
+            <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,.3)", marginBottom: 16, letterSpacing: "2px", textTransform: "uppercase" }}>
               Contact
             </div>
             <div className="footer-contact" style={{ fontSize: 16, color: "#fff", fontWeight: 700, marginBottom: 4, fontFamily: "'Playfair Display',serif" }}>+91 8007909460</div>
-            <div style={{ fontSize: 13, color: "rgba(255,255,255,.3)", marginBottom: 12, fontFamily: "'Inter',sans-serif" }}>Pravin · 24/7</div>
-            <div style={{ fontSize: 13, color: "rgba(255,255,255,.3)", marginBottom: 8, fontFamily: "'Inter',sans-serif" }}>Goa, India</div>
-            <div style={{ fontSize: 13, color: "rgba(255,255,255,.3)", fontFamily: "'Inter',sans-serif" }}>WhatsApp preferred</div>
+            <div style={{ fontSize: 13, color: "rgba(255,255,255,.3)", marginBottom: 12, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>Pravin · 24/7</div>
+            <div style={{ fontSize: 13, color: "rgba(255,255,255,.3)", marginBottom: 8, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>Goa, India</div>
+            <div style={{ fontSize: 13, color: "rgba(255,255,255,.3)", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>WhatsApp preferred</div>
           </div>
         </div>
 
@@ -1538,8 +1523,8 @@ function Footer() {
           borderTop: "1px solid rgba(255,255,255,.06)", paddingTop: 20,
           display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12
         }}>
-          <div style={{ fontSize: 12, color: "rgba(255,255,255,.2)", fontFamily: "'Inter',sans-serif" }}>© 2026 Prime Route Taxi · All rights reserved</div>
-          <div style={{ fontSize: 12, color: "rgba(255,255,255,.2)", fontFamily: "'Inter',sans-serif" }}>
+          <div style={{ fontSize: 12, color: "rgba(255,255,255,.2)", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>© 2026 Prime Route Taxi · All rights reserved</div>
+          <div style={{ fontSize: 12, color: "rgba(255,255,255,.2)", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>
             Crafted by{" "}
             <a href="https://crelante.com" target="_blank" rel="noreferrer"
               style={{ color: "#F5C800", textDecoration: "none", fontWeight: 600 }}>Crelante</a>
@@ -1634,7 +1619,7 @@ export default function App() {
       <Hero />
       <Services />
       <Fleet />
-      <FareEstimator />
+
       <WhyUs />
       <Reviews />
       <Contact />
