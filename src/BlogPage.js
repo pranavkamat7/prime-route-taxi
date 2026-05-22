@@ -34,7 +34,7 @@ export const BLOGS = [
   <li><strong>Choose AC vehicles:</strong> Goa can be extremely hot and humid. An air-conditioned cab is worth every rupee, especially on a 30–45-minute airport ride.</li>
 </ol>
 
-<p>At Prime Route Taxi, we offer flight-tracked airport pickups from both Dabolim and Mopa airports. Book on WhatsApp and receive a confirmation with your driver's name and number within minutes.</p>
+<p>At Manohar International Airport Taxi, we offer flight-tracked airport pickups from both Dabolim and Mopa airports. Book on WhatsApp and receive a confirmation with your driver's name and number within minutes.</p>
     `,
   },
   {
@@ -101,7 +101,7 @@ export const BLOGS = [
 
 <h3>How to Visit Dudhsagar Falls by Cab</h3>
 <ol>
-  <li><strong>Book a cab from your hotel to Castle Rock / Mollem</strong> — Your Prime Route cab drops you at the forest entry point (Kulem / Castle Rock area).</li>
+  <li><strong>Book a cab from your hotel to Castle Rock / Mollem</strong> — Your Manohar International Airport Taxi drops you at the forest entry point (Kulem / Castle Rock area).</li>
   <li><strong>Join a jeep safari</strong> — From Mollem, you board a 4WD jeep safari (₹400–₹500 per person, arranged locally) that takes you through the forest to the base of the falls.</li>
   <li><strong>Spend 2–3 hours at the falls</strong> — Swim in the natural pool, soak in the mist, and enjoy the rainforest surroundings.</li>
   <li><strong>Return cab picks you up</strong> — We track your return time and are waiting to bring you back comfortably.</li>
@@ -115,7 +115,7 @@ export const BLOGS = [
 </ul>
 
 <h3>Cab Service for Dudhsagar Day Trip</h3>
-<p>Prime Route Taxi offers comfortable return cab service to Dudhsagar with an experienced driver who knows these routes well. Pricing depends on your pickup location and vehicle choice — WhatsApp us for a confirmed quote.</p>
+<p>Manohar International Airport Taxi offers comfortable return cab service to Dudhsagar with an experienced driver who knows these routes well. Pricing depends on your pickup location and vehicle choice — WhatsApp us for a confirmed quote.</p>
     `,
   },
   {
@@ -156,7 +156,7 @@ export const BLOGS = [
   <li><strong>Driver rest stops:</strong> A responsible driver takes 2–3 breaks for tea and food. This is mandatory for safety on long routes — never rush a driver.</li>
 </ol>
 
-<p>Prime Route Taxi outstation cabs are fully AC, GPS-equipped, and operated by drivers with long-distance route experience. WhatsApp us for a confirmed quote.</p>
+<p>Manohar International Airport Taxi outstation cabs are fully AC, GPS-equipped, and operated by drivers with long-distance route experience. WhatsApp us for a confirmed quote.</p>
     `,
   },
   {
@@ -204,7 +204,7 @@ export const BLOGS = [
 <h3>10. Use WhatsApp for All Communication</h3>
 <p>WhatsApp is the standard in Goa for cab booking. It creates a written record of your fare, timing, and pickup location — and lets you reach your driver instantly on the day of travel.</p>
 
-<p>Prime Route Taxi follows all of the above standards — transparent fares, pre-booked confirmations, and professional drivers. Book your Goa cab on WhatsApp today.</p>
+<p>Manohar International Airport Taxi follows all of the above standards — transparent fares, pre-booked confirmations, and professional drivers. Book your Goa cab on WhatsApp today.</p>
     `,
   },
   {
@@ -236,7 +236,7 @@ export const BLOGS = [
 <h3>Half-Day Cab Package (4 hours)</h3>
 <p>We offer half-day cab packages covering Old Goa churches and the Fontainhas Latin Quarter, with return to your hotel. Fare depends on your pickup area and vehicle. WhatsApp us to get a quick quote — Pravin will confirm availability and pricing within minutes.</p>
 
-<p>Book a heritage sightseeing cab with Prime Route Taxi via WhatsApp. Our drivers are familiar with all historical sites and can help you plan the most efficient route.</p>
+<p>Book a heritage sightseeing cab with Manohar International Airport Taxi via WhatsApp. Our drivers are familiar with all historical sites and can help you plan the most efficient route.</p>
     `,
   },
 ];
@@ -638,7 +638,7 @@ export function BlogListPage({ onReadMore }) {
             </span>
           </h1>
           <p style={{ fontSize: 16, color: "#777", lineHeight: 1.7, maxWidth: 560 }}>
-            In-depth guides on taxi services, sightseeing itineraries, airport transfers, and travel tips for Goa — written by the team at Prime Route Taxi.
+            In-depth guides on taxi services, sightseeing itineraries, airport transfers, and travel tips for Goa — written by the team at Manohar International Airport Taxi.
           </p>
         </div>
 

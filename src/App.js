@@ -305,7 +305,7 @@ body{
 /* ── CONSTANTS ── */
 const PH = "918007909460";
 const wa = (m) => `https://wa.me/${PH}?text=${encodeURIComponent(m)}`;
-const GM = "Hi Pravin 👋 I found Prime Route Taxi and would like to book a ride in Goa!";
+const GM = "Hi Pravin 👋 I found Manohar International Airport Taxi and would like to book a ride in Goa!";
 const GRN = "#15803D";
 const ORG = "#F5C800";
 
@@ -323,7 +323,7 @@ const SERVICES = [
 const CARS = [
   {
     name: "Toyota Innova Crysta",
-    type: "Premium SUV",
+    type: "Premium MUV",
     seats: 7,
 
     
@@ -351,18 +351,18 @@ const CARS = [
     img: "https://d3az1m1mjm1nrq.cloudfront.net/undefinedhome-dzire_1744276735831.jpg",
   },
   {
-    name: "Toyota Etios",
-    type: "Classic Sedan",
+    name: "Maruti Ertiga",
+    type: "Compact MPV",
     seats: 4,
    
-    tag: "Budget Pick",
+    tag: "Best Value",
     tagBg: "#15803D",
     accent: "#15803D",
-    features: ["AC", "4 Seats", "Luggage", "WiFi"],
-    desc: "Reliable, clean and great value for solo travellers and short trips.",
+    features: ["AC", "7 Seats", "Smart Hybrid", "Music"],
+    desc: "Fuel-efficient & practical. Perfect for budget-conscious families and daily city commutes.",
     rating: 4.7,
     trips: 180,
-    img: "https://wallpapercave.com/wp/wp9332432.jpg",
+    img: "https://stimg.cardekho.com/images/carexteriorimages/630x420/Maruti/Ertiga-Tour/9617/1762858404297/front-left-side-47.jpg",
   },
 ];
 
@@ -451,7 +451,7 @@ function FirstVisitLoader({ visible }) {
           borderRadius: 50, padding: "6px 18px", marginBottom: 24,
           fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", fontSize: 11, fontWeight: 700, color: "#111",
           letterSpacing: 3, textTransform: "uppercase"
-        }}>Prime Route Taxi · Goa</div>
+        }}>Manohar International Airport Taxi · Goa</div>
         <h2 style={{
           fontFamily: "'Playfair Display',serif", fontWeight: 700,
           fontSize: "clamp(32px,7vw,64px)", lineHeight: 1.06, color: "#1A1A1A", marginBottom: 12
@@ -539,9 +539,9 @@ function Navbar() {
   >
     <div
       style={{
-        width: 42,
+        width: 60,
         height: 42,
-        borderRadius: 12,
+        borderRadius: 20,
         background: "transparent",
         display: "flex",
         alignItems: "center",
@@ -551,12 +551,13 @@ function Navbar() {
     >
       <img
         src="/logo.png"
-        alt="Prime Taxi Logo"
+        alt="Manohar International Airport Taxi  Logo"
         style={{
-          width: "108px",
-          height: "108px",
+          width: "90px",
+          height: "90px",
           objectFit: "contain",
-          marginBottom: "-10px"
+          marginBottom: "-20px",
+          marginRight:"20px"
         }}
       />
     </div>
@@ -572,7 +573,7 @@ function Navbar() {
           marginLeft: "-10px"
         }}
       >
-        Prime Route Taxi
+        Manohar International Airport Taxi
       </div>
 
       <div
@@ -1420,7 +1421,7 @@ function Reviews() {
             Real Reviews from<br />
             <span style={{ background: "#F5C800", color: "#111", padding: "0 6px", borderRadius: 4 }}>Real Travellers</span>
           </h2>
-          <p className="sp">Every review is from a genuine Prime Route Taxi customer.</p>
+          <p className="sp">Every review is from a genuine Manohar International Airport Taxi customer.</p>
         </div>
 
         {/* Featured review */}
@@ -1511,7 +1512,7 @@ function Reviews() {
 
         <div className="reveal" style={{ marginTop: 32, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
           <p style={{ fontSize: 14, color: "#888", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>Travelled with us? Share your experience!</p>
-          <a href={wa("Hi Pravin! I recently travelled with Prime Route Taxi and wanted to share my feedback 😊")}
+          <a href={wa("Hi Pravin! I recently travelled with Manohar International Airport Taxi and wanted to share my feedback 😊")}
             target="_blank" rel="noreferrer"
             style={{
               display: "inline-flex", alignItems: "center", gap: 8,
@@ -1575,7 +1576,7 @@ function Contact() {
             }}>+91 8007909460</div>
 
             <div style={{ fontSize: 13, color: "rgba(255,255,255,.35)", marginBottom: 32, fontWeight: 500, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>
-              Pravin · Prime Route Taxi · Goa · 24/7
+              Pravin · Manohar International Airport Taxi · Goa · 24/7
             </div>
 
             <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
@@ -1628,7 +1629,7 @@ function Footer() {
           <div>
             <div className="footer-brand" style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
               <div style={{
-                width: 42,
+                width: 60,
                 height: 42,
                 borderRadius: 12,
                 background: "transparent",
@@ -1639,17 +1640,18 @@ function Footer() {
               }}>
                 <img
                   src="/logo.png"
-                  alt="Prime Taxi Logo"
+                  alt="Manohar International Airport Taxi Logo"
                   style={{
-                    width: "108px",
-                    height: "108px",
+                    width: "90px",
+                    height: "90px",
                     objectFit: "contain",
-                    marginBottom: "-10px"
+                    marginBottom: "-15px",
+                    marginRight:"20px"
                   }}
                 />
               </div>
               <div>
-                <div className="footer-brand-title" style={{ fontFamily: "'Playfair Display',serif", fontSize: 15, fontWeight: 700, color: "#fff", marginLeft: "-10px" }}>Prime Route Taxi</div>
+                <div className="footer-brand-title" style={{ fontFamily: "'Playfair Display',serif", fontSize: 15, fontWeight: 700, color: "#fff", marginLeft: "-10px" }}>Manohar International Airport Taxi</div>
                 <div lassName="footer-brand-sub" style={{ fontSize: 9, color: "#F5C800", letterSpacing: "2px", textTransform: "uppercase", fontWeight: 600, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", marginRight: "-10px" }}>Goa, India</div>
               </div>
             </div>
@@ -1705,7 +1707,7 @@ function Footer() {
           borderTop: "1px solid rgba(255,255,255,.06)", paddingTop: 20,
           display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12
         }}>
-          <div style={{ fontSize: 12, color: "rgba(255,255,255,.2)", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>© 2026 Prime Route Taxi · All rights reserved</div>
+          <div style={{ fontSize: 12, color: "rgba(255,255,255,.2)", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>© 2026 Manohar International Airport Taxi · All rights reserved</div>
           <div style={{ fontSize: 12, color: "rgba(255,255,255,.2)", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>
             Crafted by{" "}
             <a href="https://crelante.com" target="_blank" rel="noreferrer"
@@ -1724,7 +1726,7 @@ function Chatbot() {
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
   const [messages, setMessages] = useState([
-    { from: "bot", text: "Hi! I'm the Prime Route Taxi assistant. How can I help you today?" },
+    { from: "bot", text: "Hi! I'm the Manohar International Airport Taxi assistant. How can I help you today?" },
   ]);
   const [input, setInput] = useState("");
   const bottomRef = useRef(null);
@@ -1756,7 +1758,7 @@ function Chatbot() {
     if (/(outstation|mumbai|pune|long|highway|outside goa)/.test(m))
       return "🚗 Yes, we run outstation trips to Mumbai, Pune and other cities. The Innova Crysta is great for long-distance comfort. WhatsApp Pravin at +91 8007909460 for a quote.";
     if (/(car|vehicle|innova|dzire|etios|fleet|seat)/.test(m))
-      return "🚕 We have 3 AC vehicles: Toyota Innova Crysta (7 seats), Maruti Swift Dzire (4 seats), and Toyota Etios (4 seats). All GPS-tracked with verified drivers. Which suits you?";
+      return "🚕 We have 3 AC vehicles: Toyota Innova Crysta (7 seats), Maruti Swift Dzire (4 seats), and Toyota Ertiga (7 seats). All GPS-tracked with verified drivers. Which suits you?";
     if (/(book|how|reserve|available|availability)/.test(m))
       return "📱 Booking is super easy — just WhatsApp Pravin at +91 8007909460 with your pickup location, destination, date & time. Confirmation within minutes, no app needed!";
     if (/(cancel|cancellation|refund)/.test(m))
@@ -1770,7 +1772,7 @@ function Chatbot() {
     if (/(wait|delay|late flight)/.test(m))
       return "⏳ We track your flight in real time. If it's delayed, we wait at no extra charge for up to 60 minutes beyond your scheduled arrival.";
     if (/(hi|hello|hey|hii|helo)/.test(m))
-      return "👋 Hello! I'm here to help with any questions about Prime Route Taxi in Goa. Ask me about airport pickups, tours, vehicles, or how to book!";
+      return "👋 Hello! I'm here to help with any questions about Manohar International Airport Taxi in Goa. Ask me about airport pickups, tours, vehicles, or how to book!";
     if (/(thank|thanks|ok|okay|great|perfect|awesome)/.test(m))
       return "😊 Happy to help! Feel free to ask anything else, or WhatsApp Pravin directly at +91 8007909460 to book your ride.";
     return "🙏 Great question! For the most accurate answer, WhatsApp Pravin directly at +91 8007909460 — he'll respond within minutes. You can also tap the green button below!";
@@ -1830,7 +1832,7 @@ function Chatbot() {
   </svg>
 </div> */}
               <div>
-                <div style={{ color: "#fff", fontWeight: 700, fontSize: 14, fontFamily: "'Playfair Display',serif" }}>Prime Route Assistant</div>
+                <div style={{ color: "#fff", fontWeight: 700, fontSize: 14, fontFamily: "'Playfair Display',serif" }}>Taxi Assistant</div>
                 <div style={{ color: "rgba(255,255,255,.5)", fontSize: 11, display: "flex", alignItems: "center", gap: 5 }}>
                   <span style={{ width: 6, height: 6, background: "#22C55E", borderRadius: "50%", display: "inline-block" }} />
                   Always online · Instant replies

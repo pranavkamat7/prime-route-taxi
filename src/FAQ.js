@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const FAQ_DATA = [
   {
-    q: "How do I book a taxi in Goa with Prime Route Taxi?",
+    q: "How do I book a taxi in Goa with Manohar International Airport Taxi?",
     a: "Booking is instant and easy — just tap 'Book on WhatsApp' or call +91 8007909460. Share your pickup location, destination, date, and preferred vehicle. Pravin confirms your booking within minutes. No app downloads required.",
   },
   {
@@ -15,7 +15,7 @@ const FAQ_DATA = [
   },
   {
     q: "Is your cab service available 24/7 in Goa?",
-    a: "Absolutely. Prime Route Taxi operates round the clock — 365 days a year. Whether you need an early-morning airport pickup or a late-night ride back from a Goa beach party, we're always available. WhatsApp is the fastest way to reach us.",
+    a: "Absolutely. Manohar International Airport Taxi operates round the clock — 365 days a year. Whether you need an early-morning airport pickup or a late-night ride back from a Goa beach party, we're always available. WhatsApp is the fastest way to reach us.",
   },
   {
     q: "Which vehicles are available for taxi service in Goa?",
@@ -31,7 +31,7 @@ const FAQ_DATA = [
   },
   {
     q: "Are your drivers verified and professional?",
-    a: "All Prime Route Taxi drivers are police-verified, hold a valid commercial vehicle license, and are trained in safe, courteous service. Your safety is our top priority on every ride across Goa.",
+    a: "All Manohar International Airport Taxi drivers are police-verified, hold a valid commercial vehicle license, and are trained in safe, courteous service. Your safety is our top priority on every ride across Goa.",
   },
   {
     q: "Is there a waiting charge if my flight is delayed?",
