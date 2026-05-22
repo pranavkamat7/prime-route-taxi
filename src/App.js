@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { BlogPreviewStrip, BlogListPage, BlogPage } from "./BlogPage";
+import FAQ from "./FAQ";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 /* ═══════════════════════════════════════
@@ -323,8 +325,8 @@ const CARS = [
     name: "Toyota Innova Crysta",
     type: "Premium SUV",
     seats: 7,
-    price: "₹2,500",
-    perKm: "₹14/km",
+
+    
     tag: "Most Popular",
     tagBg: "#111",
     accent: "#111",
@@ -338,8 +340,7 @@ const CARS = [
     name: "Maruti Swift Dzire",
     type: "Executive Sedan",
     seats: 4,
-    price: "₹1,400",
-    perKm: "₹10/km",
+    
     tag: "Best for Airports",
     tagBg: "#1D6DB5",
     accent: "#1D6DB5",
@@ -353,8 +354,7 @@ const CARS = [
     name: "Toyota Etios",
     type: "Classic Sedan",
     seats: 4,
-    price: "₹1,200",
-    perKm: "₹9/km",
+   
     tag: "Budget Pick",
     tagBg: "#15803D",
     accent: "#15803D",
@@ -516,74 +516,203 @@ function Navbar() {
       boxShadow: sc ? "0 2px 20px rgba(0,0,0,.07)" : "none",
       transition: "all .35s",
     }}>
-      <div className="wrap" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 70 }}>
-        {/* Logo */}
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <div style={{
-            width: 42,
-            height: 42,
-            borderRadius: 12,
-            background: "transparent",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            overflow: "hidden"
-          }}>
-            <img
-              src="/logo.png"
-              alt="Prime Taxi Logo"
-              style={{
-                width: "108px",
-                height: "108px",
-                objectFit: "contain",
-                marginBottom: "-10px",
-              }}
-            />
-          </div>
-          <div>
-            <div style={{ fontFamily: "'Playfair Display',serif", fontSize: 17, fontWeight: 700, color: "#fff", letterSpacing: "-.3px", marginLeft: "-10px" }}>
-              Prime Route Taxi
-            </div>
-            <div style={{ fontSize: 9, color: "#1a1a1a", letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 600, background: "#F5C800", padding: "1px 5px", marginLeft: "-10px", borderRadius: 2 }}>
-              GOA · EST. 2019
-            </div>
-          </div>
-        </div>
+      <div
+  className="wrap"
+  style={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    height: 70
+  }}
+>
+  
+  {/* Logo */}
+  <a
+    href="/"
+    style={{
+      display: "flex",
+      alignItems: "center",
+      gap: 12,
+      textDecoration: "none",
+      cursor: "pointer"
+    }}
+  >
+    <div
+      style={{
+        width: 42,
+        height: 42,
+        borderRadius: 12,
+        background: "transparent",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "hidden"
+      }}
+    >
+      <img
+        src="/logo.png"
+        alt="Prime Taxi Logo"
+        style={{
+          width: "108px",
+          height: "108px",
+          objectFit: "contain",
+          marginBottom: "-10px"
+        }}
+      />
+    </div>
 
-        {/* Desktop nav */}
-        <div className="nav-area" style={{ display: "none", gap: 32 }}>
-          {[["services", "Services"], ["cars", "Fleet"], ["reviews", "Reviews"], ["contact", "Contact"]].map(([id, l]) => (
-            <span key={id} className="nav-lnk" onClick={() => go(id)}
-              style={{ fontSize: 14, fontWeight: 500, color: "#fff", cursor: "pointer", transition: "color .2s", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>
-              {l}
-            </span>
-          ))}
-        </div>
-
-        <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-          <div className="book-now-btn">
-            <a href={wa(GM)} target="_blank" rel="noreferrer"
-              style={{
-                background: "#15803D",
-                color: "#fff", padding: "10px 20px", borderRadius: 50, fontWeight: 600,
-                fontSize: 13, textDecoration: "none", display: "flex", alignItems: "center", gap: 7,
-                boxShadow: "0 4px 16px rgba(21,128,61,.3)", transition: "all .25s", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif"
-              }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" /></svg>
-              <span>Book Now</span>
-            </a>
-          </div>
-          <button className="hamburger-btn" onClick={() => setMobileOpen(!mobileOpen)}
-            style={{
-              background: "transparent", border: "none", color: "#fff", cursor: "pointer",
-              padding: 4, lineHeight: 1, display: "flex", flexDirection: "column", gap: 5
-            }}>
-            <span style={{ display: "block", width: 22, height: 2, background: "#fff", borderRadius: 2, transition: "all .25s", transform: mobileOpen ? "rotate(45deg) translateY(7px)" : "none" }} />
-            <span style={{ display: "block", width: 22, height: 2, background: "#fff", borderRadius: 2, opacity: mobileOpen ? 0 : 1, transition: "all .25s" }} />
-            <span style={{ display: "block", width: 22, height: 2, background: "#fff", borderRadius: 2, transition: "all .25s", transform: mobileOpen ? "rotate(-45deg) translateY(-7px)" : "none" }} />
-          </button>
-        </div>
+    <div>
+      <div
+        style={{
+          fontFamily: "'Playfair Display',serif",
+          fontSize: 17,
+          fontWeight: 700,
+          color: "#fff",
+          letterSpacing: "-.3px",
+          marginLeft: "-10px"
+        }}
+      >
+        Prime Route Taxi
       </div>
+
+      <div
+        style={{
+          fontSize: 9,
+          color: "#1a1a1a",
+          letterSpacing: "2.5px",
+          textTransform: "uppercase",
+          fontWeight: 600,
+          background: "#F5C800",
+          padding: "1px 5px",
+          marginLeft: "-10px",
+          borderRadius: 2
+        }}
+      >
+        GOA · EST. 2019
+      </div>
+    </div>
+  </a>
+
+  {/* Desktop nav */}
+  <div className="nav-area" style={{ display: "none", gap: 32 }}>
+    {[
+      ["services", "Services"],
+      ["cars", "Fleet"],
+      ["reviews", "Reviews"],
+      ["blog", "Blog"],
+      ["faq", "FAQ"],
+      ["contact", "Contact"]
+    ].map(([id, l]) => (
+      <span
+        key={id}
+        className="nav-lnk"
+        onClick={() => go(id)}
+        style={{
+          fontSize: 14,
+          fontWeight: 500,
+          color: "#fff",
+          cursor: "pointer",
+          transition: "color .2s",
+          fontFamily:
+            "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif"
+        }}
+      >
+        {l}
+      </span>
+    ))}
+  </div>
+
+  {/* Right side buttons */}
+  <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+    
+    <div className="book-now-btn">
+      <a
+        href={wa(GM)}
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          background: "#15803D",
+          color: "#fff",
+          padding: "10px 20px",
+          borderRadius: 50,
+          fontWeight: 600,
+          fontSize: 13,
+          textDecoration: "none",
+          display: "flex",
+          alignItems: "center",
+          gap: 7,
+          boxShadow: "0 4px 16px rgba(21,128,61,.3)",
+          transition: "all .25s",
+          fontFamily:
+            "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif"
+        }}
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+        </svg>
+
+        <span>Book Now</span>
+      </a>
+    </div>
+
+    {/* Hamburger */}
+    <button
+      className="hamburger-btn"
+      onClick={() => setMobileOpen(!mobileOpen)}
+      style={{
+        background: "transparent",
+        border: "none",
+        color: "#fff",
+        cursor: "pointer",
+        padding: 4,
+        lineHeight: 1,
+        display: "flex",
+        flexDirection: "column",
+        gap: 5
+      }}
+    >
+      <span
+        style={{
+          display: "block",
+          width: 22,
+          height: 2,
+          background: "#fff",
+          borderRadius: 2,
+          transition: "all .25s",
+          transform: mobileOpen
+            ? "rotate(45deg) translateY(7px)"
+            : "none"
+        }}
+      />
+
+      <span
+        style={{
+          display: "block",
+          width: 22,
+          height: 2,
+          background: "#fff",
+          borderRadius: 2,
+          opacity: mobileOpen ? 0 : 1,
+          transition: "all .25s"
+        }}
+      />
+
+      <span
+        style={{
+          display: "block",
+          width: 22,
+          height: 2,
+          background: "#fff",
+          borderRadius: 2,
+          transition: "all .25s",
+          transform: mobileOpen
+            ? "rotate(-45deg) translateY(-7px)"
+            : "none"
+        }}
+      />
+    </button>
+  </div>
+</div>
 
       {mobileOpen && (
         <div style={{
@@ -591,7 +720,7 @@ function Navbar() {
           borderTop: "1px solid #E5E5E5",
           padding: "12px 20px 20px", animation: "fadeIn .2s ease"
         }}>
-          {[["services", "Services"], ["cars", "Fleet"], ["reviews", "Reviews"], ["contact", "Contact"]].map(([id, l]) => (
+          {[["services", "Services"], ["cars", "Fleet"], ["reviews", "Reviews"], ["blog", "Blog"], ["faq", "FAQ"], ["contact", "Contact"]].map(([id, l]) => (
             <div key={id} onClick={() => go(id)}
               style={{ padding: "13px 0", borderBottom: "1px solid #EFEFEF", color: "#333", fontSize: 15, fontWeight: 500, cursor: "pointer", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>
               {l}
@@ -978,28 +1107,32 @@ function Services() {
         alignItems:"center",
         justifyContent:"space-between"
       }}>
-        <span style={{
-          fontSize:12,
-          fontWeight:600,
-          color:"#999",
-          letterSpacing:".5px",
-          textTransform:"uppercase"
-        }}>
-          Book Ride
-        </span>
-
-        <div style={{
-          width:34,
-          height:34,
-          borderRadius:"50%",
-          background:"#f5c800",
-          display:"flex",
-          alignItems:"center",
-          justifyContent:"center",
-          color:"#fff",
-          fontWeight:700
-        }}>
-          →
+        <div style={{display:"flex", gap:"8px"}}>
+          <a href={wa(`Hi Pravin! I'd like a ride to ${s.name} (approx ${s.dist}). Please share pricing & availability 🙏`)}
+             target="_blank" rel="noreferrer"
+             style={{
+               background:"#15803D",
+               color:"#fff",
+               padding:"6px 12px",
+               borderRadius:"6px",
+               textDecoration:"none",
+               fontWeight:600,
+               fontSize:12
+             }}>
+            WhatsApp
+          </a>
+          <a href={`tel:+919999999999`}
+             style={{
+               background:"#111",
+               color:"#fff",
+               padding:"6px 12px",
+               borderRadius:"6px",
+               textDecoration:"none",
+               fontWeight:600,
+               fontSize:12
+             }}>
+            Call
+          </a>
         </div>
       </div>
 
@@ -1088,23 +1221,66 @@ function Fleet() {
                 <div style={{ fontSize: 11, color: "#BBB", marginBottom: 18, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>{car.trips} trips completed</div>
 
                 <div style={{
-                  display: "flex", alignItems: "center", justifyContent: "space-between",
-                  paddingTop: 16, borderTop: "1px solid #EFEFEF"
                 }}>
-                  <div>
-                    <div style={{ fontFamily: "'Playfair Display',serif", fontSize: 28, fontWeight: 700, color: "#1A1A1A", lineHeight: 1 }}>
-                      {car.price}
-                    </div>
-                    <div style={{ fontSize: 11, color: "#AAA", marginTop: 2, fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>/day · {car.perKm}</div>
-                  </div>
-                  <a href={wa(bm(car))} target="_blank" rel="noreferrer"
-                    className="car-book-btn"
-                    style={{
-                      background: "transparent", border: `1.5px solid ${car.tagBg}`,
-                      color: car.tagBg, padding: "11px 20px", borderRadius: 10,
-                      fontWeight: 600, fontSize: 13, textDecoration: "none",
-                      transition: "all .25s cubic-bezier(.22,1,.36,1)", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif"
-                    }}>Book →</a>
+                  <div style={{ display:"flex", gap:"105px" }}>
+
+  {/* WhatsApp Button */}
+  <a
+    href={wa(bm(car))}
+    target="_blank"
+    rel="noreferrer"
+    style={{
+      background:"#15803D",
+      color:"#fff",
+      padding:"10px 16px",
+      borderRadius:"10px",
+      textDecoration:"none",
+      fontWeight:600,
+      fontSize:13,
+      display:"flex",
+      alignItems:"center",
+      gap:"6px",
+      boxShadow:"0 4px 12px rgba(37,211,102,.25)"
+    }}
+  >
+     <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" /></svg>
+    WhatsApp
+  </a>
+  
+
+  {/* Call Button */}
+  <a
+    href={`tel:+919999999999`}
+    style={{
+      background:"#111",
+      color:"#fff",
+      padding:"10px 16px",
+      borderRadius:"10px",
+      textDecoration:"none",
+      fontWeight:600,
+      fontSize:13,
+      display:"flex",
+      alignItems:"center",
+      gap:"6px",
+      boxShadow:"0 4px 12px rgba(0,0,0,.18)"
+    }}
+  >
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#fff"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.27 2 2 0 0 1 3.55 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 6.29 6.29l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+    </svg>
+    Call
+  </a>
+
+</div>
                 </div>
               </div>
             </motion.div>
@@ -1500,7 +1676,7 @@ function Footer() {
             <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,.3)", marginBottom: 16, letterSpacing: "2px", textTransform: "uppercase" }}>
               Quick Links
             </div>
-            {[["#services", "Our Services"], ["#cars", "Fleet & Pricing"], ["#estimator", "Fare Estimator"], ["#reviews", "Reviews"], ["#contact", "Contact"]].map(([href, l]) => (
+            {[["#services", "Our Services"], ["#cars", "Fleet & Pricing"], ["#estimator", "Fare Estimator"], ["#blog", "Travel Blog"], ["#faq", "FAQ"], ["#reviews", "Reviews"], ["#contact", "Contact"]].map(([href, l]) => (
               <a key={l} href={href}
                 style={{ display: "block", fontSize: 13, color: "rgba(255,255,255,.4)", marginBottom: 9, textDecoration: "none", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" }}>
                 {l}
@@ -1536,41 +1712,228 @@ function Footer() {
 }
 
 /* ═══════════════════════════════════════
-   WHATSAPP FLOAT
+   AI CHATBOT WIDGET
 ═══════════════════════════════════════ */
-function WAFloat() {
+function Chatbot() {
+  const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
+  const [messages, setMessages] = useState([
+    { from: "bot", text: "Hi! I'm the Prime Route Taxi assistant. How can I help you today?" },
+  ]);
+  const [input, setInput] = useState("");
+  const bottomRef = useRef(null);
 
   useEffect(() => {
     const t = setTimeout(() => setShow(true), 2000);
     return () => clearTimeout(t);
   }, []);
 
-  return show ? (
-    <div style={{ position: "fixed", bottom: 24, right: 24, zIndex: 600, display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 10 }}>
-      <a href="tel:+918007909460"
-        style={{
-          width: 46, height: 46, borderRadius: "50%", background: "#111",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          textDecoration: "none",
-          boxShadow: "0 6px 20px rgba(0,0,0,.2)",
-          animation: "fadeIn .4s .1s both", transition: "transform .22s"
+  useEffect(() => {
+    if (open) bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, open]);
+
+  const QUICK = [
+    "Airport pickup",
+    "Sightseeing tour",
+    "Outstation trip",
+    "Available vehicles",
+    "How to book?",
+    "Cancellation policy",
+  ];
+
+  const getReply = (msg) => {
+    const m = msg.toLowerCase();
+    if (/(airport|dabolim|mopa|flight|pickup|drop)/.test(m))
+      return "✈️ Yes! We do airport pickups & drops from both Dabolim (GOI) and Mopa (GOX) airports. We track your flight so there's no waiting even if it's delayed. WhatsApp Pravin at +91 8007909460 to book!";
+    if (/(sightseeing|tour|north goa|south goa|calangute|baga|anjuna|dudhsagar|fort aguada)/.test(m))
+      return "🏖️ We offer full-day sightseeing packages covering the best of North & South Goa — beaches, forts, churches, waterfalls and more. Custom routes available too! WhatsApp +91 8007909460 for details.";
+    if (/(outstation|mumbai|pune|long|highway|outside goa)/.test(m))
+      return "🚗 Yes, we run outstation trips to Mumbai, Pune and other cities. The Innova Crysta is great for long-distance comfort. WhatsApp Pravin at +91 8007909460 for a quote.";
+    if (/(car|vehicle|innova|dzire|etios|fleet|seat)/.test(m))
+      return "🚕 We have 3 AC vehicles: Toyota Innova Crysta (7 seats), Maruti Swift Dzire (4 seats), and Toyota Etios (4 seats). All GPS-tracked with verified drivers. Which suits you?";
+    if (/(book|how|reserve|available|availability)/.test(m))
+      return "📱 Booking is super easy — just WhatsApp Pravin at +91 8007909460 with your pickup location, destination, date & time. Confirmation within minutes, no app needed!";
+    if (/(cancel|cancellation|refund)/.test(m))
+      return "✅ Cancellations more than 4 hours before pickup are completely free. Within 4 hours may attract a small fee. WhatsApp us at +91 8007909460 to cancel.";
+    if (/(price|fare|cost|charge|rate|how much)/.test(m))
+      return "💬 Fares depend on your route, vehicle, and trip type. WhatsApp Pravin at +91 8007909460 and he'll share a personalised quote instantly!";
+    if (/(night|late|midnight|24|always)/.test(m))
+      return "🌙 Yes, we're available 24/7 — 365 days a year including late nights. Pre-booking is recommended for night rides. WhatsApp +91 8007909460 anytime!";
+    if (/(safe|driver|verified|license|police)/.test(m))
+      return "🛡️ All our drivers are police-verified, hold a valid commercial license, and are trained in safe & courteous service. Your safety is our top priority.";
+    if (/(wait|delay|late flight)/.test(m))
+      return "⏳ We track your flight in real time. If it's delayed, we wait at no extra charge for up to 60 minutes beyond your scheduled arrival.";
+    if (/(hi|hello|hey|hii|helo)/.test(m))
+      return "👋 Hello! I'm here to help with any questions about Prime Route Taxi in Goa. Ask me about airport pickups, tours, vehicles, or how to book!";
+    if (/(thank|thanks|ok|okay|great|perfect|awesome)/.test(m))
+      return "😊 Happy to help! Feel free to ask anything else, or WhatsApp Pravin directly at +91 8007909460 to book your ride.";
+    return "🙏 Great question! For the most accurate answer, WhatsApp Pravin directly at +91 8007909460 — he'll respond within minutes. You can also tap the green button below!";
+  };
+
+  const send = (text) => {
+    const msg = (text || input).trim();
+    if (!msg) return;
+    setMessages(prev => [...prev, { from: "user", text: msg }]);
+    setInput("");
+    setTimeout(() => {
+      setMessages(prev => [...prev, { from: "bot", text: getReply(msg) }]);
+    }, 500);
+  };
+
+  if (!show) return null;
+
+  return (
+    <>
+      {open && (
+        <div style={{
+          position: "fixed", bottom: 90, right: 20, zIndex: 700,
+          width: "min(360px, calc(100vw - 40px))",
+          background: "#fff", borderRadius: 20,
+          boxShadow: "0 20px 60px rgba(0,0,0,.18)",
+          display: "flex", flexDirection: "column",
+          overflow: "hidden", animation: "slideUp .3s cubic-bezier(.22,1,.36,1)",
+          border: "1px solid #E5E5E5",
+          maxHeight: "min(520px, 75vh)",
         }}>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.27 2 2 0 0 1 3.55 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 6.29 6.29l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
-      </a>
-      <a href={wa(GM)} target="_blank" rel="noreferrer" className="wa-fab"
+          {/* Header */}
+          <div style={{ background: "#111", padding: "16px 18px", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              {/* <div
+  style={{
+    width: 38,
+    height: 38,
+    borderRadius: "50%",
+    background: "rgba(245,200,0,.12)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    border: "1px solid rgba(245,200,0,.25)"
+  }}
+>
+  <svg
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#F5C800"
+    strokeWidth="2.2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M12 3l2.4 4.86 5.36.78-3.88 3.78.92 5.34L12 15.27 7.2 17.76l.92-5.34-3.88-3.78 5.36-.78L12 3z"/>
+  </svg>
+</div> */}
+              <div>
+                <div style={{ color: "#fff", fontWeight: 700, fontSize: 14, fontFamily: "'Playfair Display',serif" }}>Prime Route Assistant</div>
+                <div style={{ color: "rgba(255,255,255,.5)", fontSize: 11, display: "flex", alignItems: "center", gap: 5 }}>
+                  <span style={{ width: 6, height: 6, background: "#22C55E", borderRadius: "50%", display: "inline-block" }} />
+                  Always online · Instant replies
+                </div>
+              </div>
+            </div>
+            <button onClick={() => setOpen(false)} style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,.5)", fontSize: 22, lineHeight: 1, padding: 4 }}>×</button>
+          </div>
+
+          {/* Messages */}
+          <div style={{ flex: 1, overflowY: "auto", padding: "16px 14px", display: "flex", flexDirection: "column", gap: 10 }}>
+            {messages.map((m, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: m.from === "user" ? "flex-end" : "flex-start" }}>
+                <div style={{
+                  maxWidth: "84%",
+                  background: m.from === "user" ? "#111" : "#F4F4F4",
+                  color: m.from === "user" ? "#fff" : "#1A1A1A",
+                  padding: "10px 14px",
+                  borderRadius: m.from === "user" ? "16px 16px 4px 16px" : "16px 16px 16px 4px",
+                  fontSize: 13, lineHeight: 1.7,
+                  fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif"
+                }}>{m.text}</div>
+              </div>
+            ))}
+            <div ref={bottomRef} />
+          </div>
+
+          {/* Quick reply chips */}
+          <div style={{ padding: "8px 14px", display: "flex", gap: 6, flexWrap: "wrap", borderTop: "1px solid #F0F0F0" }}>
+            {QUICK.map((q, i) => (
+              <button key={i} onClick={() => send(q)}
+                style={{
+                  background: "transparent", border: "1px solid #E5E5E5", borderRadius: 50,
+                  padding: "5px 12px", fontSize: 11, color: "#555", cursor: "pointer",
+                  fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", fontWeight: 500,
+                  transition: "all .2s"
+                }}>{q}</button>
+            ))}
+          </div>
+
+          {/* Input */}
+          <div style={{ padding: "10px 14px 14px", borderTop: "1px solid #F0F0F0", display: "flex", gap: 8, flexShrink: 0 }}>
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && send()}
+              placeholder="Type a question..."
+              style={{
+                flex: 1, padding: "10px 14px", borderRadius: 10, border: "1.5px solid #E5E5E5",
+                fontSize: 13, outline: "none", fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif",
+              }}
+              onFocus={e => e.target.style.borderColor = "#F5C800"}
+              onBlur={e => e.target.style.borderColor = "#E5E5E5"}
+            />
+            <button onClick={() => send()}
+              style={{
+                width: 40, height: 40, borderRadius: 10,
+                background: input.trim() ? "#111" : "#E5E5E5",
+                border: "none", cursor: "pointer",
+                display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+                transition: "background .2s"
+              }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={input.trim() ? "#fff" : "#999"} strokeWidth="2.5" strokeLinecap="round">
+                <line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" />
+              </svg>
+            </button>
+          </div>
+
+          {/* WhatsApp CTA */}
+          <a href={`https://wa.me/918007909460?text=${encodeURIComponent("Hi Pravin! I'd like to book a cab in Goa.")}`}
+            target="_blank" rel="noreferrer"
+            style={{
+              display: "flex", alignItems: "center", justifyContent: "center", gap: 7,
+              background: "#15803D", color: "#fff", padding: "12px",
+              textDecoration: "none", fontSize: 13, fontWeight: 600, flexShrink: 0,
+              fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif"
+            }}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" /></svg>
+            Book on WhatsApp with Pravin
+          </a>
+        </div>
+      )}
+
+      {/* FAB toggle */}
+      <button onClick={() => setOpen(!open)}
         style={{
-          width: 58, height: 58, borderRadius: "50%", background: GRN,
+          position: "fixed", bottom: 24, right: 24, zIndex: 700,
+          width: 58, height: 58, borderRadius: "50%",
+          background: open ? "#111" : "#F5C800",
+          border: "none", cursor: "pointer",
           display: "flex", alignItems: "center", justifyContent: "center",
-          textDecoration: "none",
-          boxShadow: "0 10px 28px rgba(21,128,61,.5)",
-          animation: "waPulse 2.5s infinite,fadeIn .4s both", transition: "transform .22s"
+          boxShadow: open ? "0 8px 24px rgba(0,0,0,.25)" : "0 8px 28px rgba(245,200,0,.5)",
+          transition: "all .3s cubic-bezier(.22,1,.36,1)",
+          animation: open ? "none" : "pulseGlow 2.5s infinite"
         }}>
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" /></svg>
-      </a>
-    </div>
-  ) : null;
+        {open ? (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round">
+            <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        ) : (
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          </svg>
+        )}
+      </button>
+    </>
+  );
 }
+
 
 /* ═══════════════════════════════════════
    ROOT APP
@@ -1578,6 +1941,23 @@ function WAFloat() {
 export default function App() {
   const [isReady, setIsReady] = useState(false);
   const [showLoader, setShowLoader] = useState(false);
+  // "home" | "blog-list" | "blog-post"
+  const [page, setPage] = useState("home");
+  const [activeBlogSlug, setActiveBlogSlug] = useState(null);
+
+  const goToPost = (slug) => {
+    setActiveBlogSlug(slug);
+    setPage("blog-post");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+  const goToBlogList = () => {
+    setPage("blog-list");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+  const goHome = () => {
+    setPage("home");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   useEffect(() => {
     if (!document.getElementById("prt-css")) {
@@ -1599,7 +1979,7 @@ export default function App() {
     );
     document.querySelectorAll(".reveal,.reveal-left,.reveal-right").forEach(el => observer.observe(el));
     return () => observer.disconnect();
-  }, [isReady]);
+  }, [isReady, page]);
 
   useEffect(() => {
     if (!isReady || !showLoader) return;
@@ -1612,6 +1992,28 @@ export default function App() {
 
   if (!isReady) return null;
 
+  if (page === "blog-list") {
+    return (
+      <>
+        <Navbar />
+        <BlogListPage onReadMore={goToPost} />
+        <Footer />
+        <Chatbot />
+      </>
+    );
+  }
+
+  if (page === "blog-post") {
+    return (
+      <>
+        <Navbar />
+        <BlogPage slug={activeBlogSlug} onBack={goToBlogList} />
+        <Footer />
+        <Chatbot />
+      </>
+    );
+  }
+
   return (
     <>
       {showLoader && <FirstVisitLoader visible={showLoader} />}
@@ -1619,12 +2021,13 @@ export default function App() {
       <Hero />
       <Services />
       <Fleet />
-
       <WhyUs />
       <Reviews />
+      <BlogPreviewStrip onReadMore={goToPost} onViewAll={goToBlogList} />
+      <FAQ />
       <Contact />
       <Footer />
-      <WAFloat />
+      <Chatbot />
     </>
   );
 }
