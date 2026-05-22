@@ -1222,7 +1222,13 @@ function Fleet() {
 
                 <div style={{
                 }}>
-                  <div style={{ display:"flex", gap:"105px" }}>
+                  <div style={{
+  display:"flex",
+  justifyContent:"space-between",
+  alignItems:"center",
+  gap:"12px",
+  width:"100%"
+}}>
 
   {/* WhatsApp Button */}
   <a
